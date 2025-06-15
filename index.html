@@ -1,131 +1,292 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Create Your CV | Fast Resume Builder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CV Builder | منشئ السيرة الذاتية</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f2f6fc;
-      margin: 0;
-      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 20px;
+      background: #f0f2f5;
       color: #333;
+      direction: rtl;
     }
     header {
-      background: #0b6efd;
-      color: white;
-      padding: 2rem;
       text-align: center;
+      margin-bottom: 20px;
     }
-    header h1 {
-      margin: 0;
-      font-size: 2.2rem;
+    h1 {
+      margin: 0 0 10px;
+      color: #007bff;
     }
-    header p {
-      font-size: 1.1rem;
+    select {
+      padding: 8px;
+      margin-bottom: 30px;
+      font-size: 16px;
     }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 2rem;
-      background: white;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-      margin-top: 2rem;
-      border-radius: 10px;
+    .lang {
+      display: none;
     }
-    .form-group {
-      margin-bottom: 1.5rem;
+    .lang.active {
+      display: block;
     }
     label {
       display: block;
-      margin-bottom: 0.5rem;
+      margin-bottom: 8px;
       font-weight: bold;
     }
     input, textarea {
       width: 100%;
-      padding: 0.7rem;
+      padding: 8px;
+      margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 5px;
-      font-size: 1rem;
+      font-size: 14px;
+      box-sizing: border-box;
     }
     button {
-      background: #0b6efd;
+      background-color: #007bff;
       color: white;
-      padding: 0.8rem 1.5rem;
       border: none;
+      padding: 12px 20px;
+      font-size: 16px;
       border-radius: 5px;
-      font-size: 1rem;
       cursor: pointer;
     }
-    footer {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      color: #888;
+    button:hover {
+      background-color: #0056b3;
     }
-    .ads {
+    .adsense {
+      margin: 30px 0;
       text-align: center;
-      margin: 2rem 0;
+      padding: 10px;
+      border: 1px dashed #888;
+      color: #888;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Build Your CV in Minutes</h1>
-    <p>Simple. Fast. Professional.</p>
-  </header>
+<header>
+  <h1 id="title">منشئ السيرة الذاتية</h1>
+  <select id="lang-select" aria-label="اختيار اللغة">
+    <option value="ar">العربية</option>
+    <option value="en">English</option>
+    <option value="fr">Français</option>
+    <option value="es">Español</option>
+    <option value="pt">Português</option>
+    <option value="de">Deutsch</option>
+  </select>
+</header>
 
-  <div class="container">
-    <form>
-      <div class="form-group">
-        <label>Full Name</label>
-        <input type="text" placeholder="John Doe" required />
-      </div>
+<!-- Arabic -->
+<div class="lang active" id="lang-ar">
+  <form id="form-ar">
+    <label for="name-ar">الاسم الكامل:</label>
+    <input type="text" id="name-ar" placeholder="أدخل اسمك الكامل" required />
 
-      <div class="form-group">
-        <label>Email Address</label>
-        <input type="email" placeholder="you@example.com" required />
-      </div>
+    <label for="email-ar">البريد الإلكتروني:</label>
+    <input type="email" id="email-ar" placeholder="example@example.com" required />
 
-      <div class="form-group">
-        <label>Phone Number</label>
-        <input type="tel" placeholder="+1 555-123-4567" />
-      </div>
+    <label for="phone-ar">رقم الهاتف:</label>
+    <input type="tel" id="phone-ar" placeholder="+212 6 XX XX XX XX" required />
 
-      <div class="form-group">
-        <label>Professional Summary</label>
-        <textarea rows="4" placeholder="Write a brief summary about your experience..."></textarea>
-      </div>
+    <label for="summary-ar">ملخص عنك:</label>
+    <textarea id="summary-ar" rows="4" placeholder="اكتب ملخصاً قصيراً عن خبراتك" required></textarea>
 
-      <div class="form-group">
-        <label>Work Experience</label>
-        <textarea rows="4" placeholder="Job Title, Company, Dates, Description..."></textarea>
-      </div>
+    <button type="button" onclick="generatePDF('ar')">إنشاء السيرة الذاتية</button>
+  </form>
+</div>
 
-      <div class="form-group">
-        <label>Education</label>
-        <textarea rows="3" placeholder="Degree, University, Year..."></textarea>
-      </div>
+<!-- English -->
+<div class="lang" id="lang-en">
+  <form id="form-en">
+    <label for="name-en">Full Name:</label>
+    <input type="text" id="name-en" placeholder="Enter your full name" required />
 
-      <div class="form-group">
-        <label>Skills</label>
-        <input type="text" placeholder="e.g. HTML, CSS, Communication" />
-      </div>
+    <label for="email-en">Email:</label>
+    <input type="email" id="email-en" placeholder="example@example.com" required />
 
-      <button type="submit">Generate CV</button>
-    </form>
+    <label for="phone-en">Phone Number:</label>
+    <input type="tel" id="phone-en" placeholder="+1 234 567 8900" required />
 
-    <div class="ads">
-      <!-- Placeholder for AdSense (replace with real code when approved) -->
-      <p><strong>Sponsored:</strong> Try <a href="https://partnerlink.example.com" target="_blank">Canva Pro</a> to design stunning CVs!</p>
-    </div>
-  </div>
+    <label for="summary-en">Summary:</label>
+    <textarea id="summary-en" rows="4" placeholder="Write a short summary about yourself" required></textarea>
 
-  <footer>
-    &copy; 2025 CVBuilderAI. All rights reserved.
-  </footer>
+    <button type="button" onclick="generatePDF('en')">Create CV</button>
+  </form>
+</div>
+
+<!-- French -->
+<div class="lang" id="lang-fr">
+  <form id="form-fr">
+    <label for="name-fr">Nom complet :</label>
+    <input type="text" id="name-fr" placeholder="Entrez votre nom complet" required />
+
+    <label for="email-fr">Email :</label>
+    <input type="email" id="email-fr" placeholder="exemple@exemple.com" required />
+
+    <label for="phone-fr">Numéro de téléphone :</label>
+    <input type="tel" id="phone-fr" placeholder="+33 6 XX XX XX XX" required />
+
+    <label for="summary-fr">Résumé :</label>
+    <textarea id="summary-fr" rows="4" placeholder="Écrivez un court résumé de vous-même" required></textarea>
+
+    <button type="button" onclick="generatePDF('fr')">Créer le CV</button>
+  </form>
+</div>
+
+<!-- Spanish -->
+<div class="lang" id="lang-es">
+  <form id="form-es">
+    <label for="name-es">Nombre completo:</label>
+    <input type="text" id="name-es" placeholder="Ingrese su nombre completo" required />
+
+    <label for="email-es">Correo electrónico:</label>
+    <input type="email" id="email-es" placeholder="ejemplo@ejemplo.com" required />
+
+    <label for="phone-es">Número de teléfono:</label>
+    <input type="tel" id="phone-es" placeholder="+34 6 XX XX XX XX" required />
+
+    <label for="summary-es">Resumen:</label>
+    <textarea id="summary-es" rows="4" placeholder="Escriba un breve resumen sobre usted" required></textarea>
+
+    <button type="button" onclick="generatePDF('es')">Crear CV</button>
+  </form>
+</div>
+
+<!-- Portuguese -->
+<div class="lang" id="lang-pt">
+  <form id="form-pt">
+    <label for="name-pt">Nome completo:</label>
+    <input type="text" id="name-pt" placeholder="Digite seu nome completo" required />
+
+    <label for="email-pt">Email:</label>
+    <input type="email" id="email-pt" placeholder="exemplo@exemplo.com" required />
+
+    <label for="phone-pt">Número de telefone:</label>
+    <input type="tel" id="phone-pt" placeholder="+55 11 9 XXXX-XXXX" required />
+
+    <label for="summary-pt">Resumo:</label>
+    <textarea id="summary-pt" rows="4" placeholder="Escreva um breve resumo sobre você" required></textarea>
+
+    <button type="button" onclick="generatePDF('pt')">Criar CV</button>
+  </form>
+</div>
+
+<!-- German -->
+<div class="lang" id="lang-de">
+  <form id="form-de">
+    <label for="name-de">Vollständiger Name:</label>
+    <input type="text" id="name-de" placeholder="Geben Sie Ihren vollständigen Namen ein" required />
+
+    <label for="email-de">E-Mail:</label>
+    <input type="email" id="email-de" placeholder="beispiel@beispiel.com" required />
+
+    <label for="phone-de">Telefonnummer:</label>
+    <input type="tel" id="phone-de" placeholder="+49 170 1234567" required />
+
+    <label for="summary-de">Zusammenfassung:</label>
+    <textarea id="summary-de" rows="4" placeholder="Schreiben Sie eine kurze Zusammenfassung über sich" required></textarea>
+
+    <button type="button" onclick="generatePDF('de')">CV erstellen</button>
+  </form>
+</div>
+
+<!-- AdSense Placeholder -->
+<div class="adsense">
+  إعلان Google AdSense هنا (ضع كود الإعلانات الخاص بك)
+</div>
+
+<!-- jsPDF library from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+  const { jsPDF } = window.jspdf;
+
+  const langSelect = document.getElementById('lang-select');
+  const langs = document.querySelectorAll('.lang');
+  const title = document.getElementById('title');
+
+  const directions = {
+    ar: 'rtl',
+    en: 'ltr',
+    fr: 'ltr',
+    es: 'ltr',
+    pt: 'ltr',
+    de: 'ltr'
+  };
+
+  const titles = {
+    ar: 'منشئ السيرة الذاتية',
+    en: 'CV Builder',
+    fr: 'Créateur de CV',
+    es: 'Creador de CV',
+    pt: 'Construtor de CV',
+    de: 'Lebenslauf-Ersteller'
+  };
+
+  const labels = {
+    ar: { name: "الاسم الكامل", email: "البريد الإلكتروني", phone: "رقم الهاتف", summary: "ملخص عنك" },
+    en: { name: "Full Name", email: "Email", phone: "Phone Number", summary: "Summary" },
+    fr: { name: "Nom complet", email: "Email", phone: "Numéro de téléphone", summary: "Résumé" },
+    es: { name: "Nombre completo", email: "Correo electrónico", phone: "Número de teléfono", summary: "Resumen" },
+    pt: { name: "Nome completo", email: "Email", phone: "Número de telefone", summary: "Resumo" },
+    de: { name: "Vollständiger Name", email: "E-Mail", phone: "Telefonnummer", summary: "Zusammenfassung" }
+  };
+
+  langSelect.addEventListener('change', () => {
+    const selected = langSelect.value;
+    langs.forEach(el => el.classList.remove('active'));
+    document.getElementById('lang-' + selected).classList.add('active');
+
+    document.body.dir = directions[selected] || 'ltr';
+    title.textContent = titles[selected] || 'CV Builder';
+  });
+
+  function generatePDF(lang) {
+    const name = document.getElementById(`name-${lang}`).value.trim();
+    const email = document.getElementById(`email-${lang}`).value.trim();
+    const phone = document.getElementById(`phone-${lang}`).value.trim();
+    const summary = document.getElementById(`summary-${lang}`).value.trim();
+
+    if (!name || !email || !phone || !summary) {
+      alert('يرجى ملء جميع الحقول'); // بالعربية فقط للبساطة
+      return;
+    }
+
+    const doc = new jsPDF({
+      unit: 'pt',
+      format: 'a4',
+      putOnlyUsedFonts:true,
+      floatPrecision: 16
+    });
+
+    // تعيين اتجاه النص في PDF
+    if(lang === 'ar') {
+      doc.setLanguage('ar');
+      doc.setFont('Helvetica', 'normal');
+      doc.text(`السيرة الذاتية`, 40, 40);
+      doc.text(`${labels[lang].name}: ${name}`, 40, 80);
+      doc.text(`${labels[lang].email}: ${email}`, 40, 110);
+      doc.text(`${labels[lang].phone}: ${phone}`, 40, 140);
+      doc.text(`${labels[lang].summary}:`, 40, 170);
+      doc.text(doc.splitTextToSize(summary, 500), 40, 200);
+    } else {
+      doc.setFont('Helvetica', 'normal');
+      doc.text(`Curriculum Vitae`, 40, 40);
+      doc.text(`${labels[lang].name}: ${name}`, 40, 80);
+      doc.text(`${labels[lang].email}: ${email}`, 40, 110);
+      doc.text(`${labels[lang].phone}: ${phone}`, 40, 140);
+      doc.text(`${labels[lang].summary}:`, 40, 170);
+      doc.text(doc.splitTextToSize(summary, 500), 40, 200);
+    }
+
+    doc.save(`CV_${name.replace(/\s+/g, '_')}.pdf`);
+  }
+</script>
 
 </body>
 </html>
